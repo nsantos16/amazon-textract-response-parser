@@ -122,25 +122,29 @@ export class Geometry<
   TParentBlock,
   TParent extends ApiObjectWrapper<TParentBlock>
 > extends ApiObjectWrapper<ApiGeometry> {
-  _boundingBox: BoundingBox<TParentBlock, TParent>;
+  _boundingBox: BoundingBox<TParentBlock, TParent> | undefined;
   _parentObject: TParent | null;
-  _polygon: Point<TParentBlock, TParent>[];
+  _polygon: Point<TParentBlock, TParent>[] | undefined;
 
   constructor(dict: ApiGeometry, parentObject: TParent | null) {
     super(dict);
     this._parentObject = parentObject;
-    this._boundingBox = new BoundingBox(dict.BoundingBox, this);
-    this._polygon = dict.Polygon.map((pnt) => new Point(pnt, this));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (parentObject?._dict!["Text"] !== "") {
+      this._boundingBox = new BoundingBox(dict.BoundingBox, this);
+      this._polygon = dict.Polygon.map((pnt) => new Point(pnt, this));
+    }
   }
 
   get boundingBox(): BoundingBox<TParentBlock, TParent> {
-    return this._boundingBox;
+    return this._boundingBox!;
   }
   get parentObject(): TParent | null {
     return this._parentObject;
   }
   get polygon(): Point<TParentBlock, TParent>[] {
-    return this._polygon.slice();
+    return this._polygon!.slice();
   }
 
   /**
@@ -166,6 +170,6 @@ export class Geometry<
   }
 
   str(): string {
-    return `BoundingBox: ${this._boundingBox.str()}`;
+    return `BoundingBox: ${this._boundingBox!.str()}`;
   }
 }
