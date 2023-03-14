@@ -5,6 +5,7 @@
     "lib": ["dom", "es2016"],
     "module": "CommonJS",
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "preserveConstEnums": true,

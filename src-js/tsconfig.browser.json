@@ -3,5 +3,6 @@
   "compilerOptions": {
     // @rollup/plugin-typescript requires esnext output (will be converted to final IIFE bundle)
     "module": "esnext",
+    "skipLibCheck": true,
   }
 }

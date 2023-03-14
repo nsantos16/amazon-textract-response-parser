@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "umd",
-    "outDir": "dist/umd"
+    "outDir": "dist/umd",
+    "skipLibCheck": true,
   }
 }
